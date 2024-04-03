@@ -1,8 +1,13 @@
-const express =  require('express') 
+const express = require('express');
+require('./config/connectDb')
+const app = express();
+const AuthenRouter = require('./routes/auth'); // Import router auth
 
-const app = express()  
 
+app.use(express.json()); // Middleware để parse JSON từ request body
 
-app.listen(3000,()=>{
-    console.log("This is My blog , created at 4/2/2024")
-})
+app.use('/api/auth', AuthenRouter); // Sử dụng router auth
+
+app.listen(3000, () => {
+    console.log("This is My blog, created at 4/2/2024")
+});

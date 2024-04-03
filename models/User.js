@@ -6,7 +6,6 @@ var userSchema = new mongoose.Schema({
         type:String,
         required:true,
         unique:true,
-        index:true,
     },
     email:{
         type:String,
@@ -20,11 +19,11 @@ var userSchema = new mongoose.Schema({
     avatar : {
         type : String 
     }, 
-    role : {
-        type : Boolean , 
-        enum : ['admin','user'] , 
-        default : 'user' 
-    }, 
+    role: {
+        type: String,
+        enum: ['admin', 'user'],
+        default: 'user'
+    },
     isActive :  {
         type : Boolean , 
         default : true  
