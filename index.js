@@ -4,12 +4,14 @@ require('./config/connectDb')
 const {errorHandler} =  require('./util/errorHandle')
 const app = express();
 const AuthenRouter = require('./routes/auth'); // Import router auth
+const UserRouter = require('./routes/user')
+const {authenticateUser} = require('./util/authenticateUser')
 
 app.use(cookieParser())
 app.use(express.json()); // Middleware để parse JSON từ request body
 
 app.use('/api/auth', AuthenRouter); // Sử dụng router auth
-
+app.use('/api/users/', authenticateUser,UserRouter)
 
 app.use(errorHandler)
 app.listen(3000, () => {
