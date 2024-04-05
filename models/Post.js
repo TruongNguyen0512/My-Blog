@@ -1,5 +1,5 @@
 const mongoose = require('mongoose'); // Erase if already required
-
+const Schema = mongoose.Schema;
 // Declare the Schema of the Mongo model
 var postSchema = new mongoose.Schema({
     title:{
@@ -10,15 +10,11 @@ var postSchema = new mongoose.Schema({
         type:String,
         required:true,
     },
-    author:{
-        type:Schema.Types.ObjectId ,
-        ref : 'User', 
-        require : true , 
-    },
-    author: { type: Schema.Types.ObjectId, 
-        ref: 'User',
+    author: {
+        type: Schema.Types.ObjectId,
+        ref: 'User', 
         required: true
-     },
+    },    
      createdAt: { 
         type: Date, 
         default: Date.now 
@@ -67,4 +63,4 @@ var postSchema = new mongoose.Schema({
 });
 
 //Export the model
-module.exports = mongoose.model('User', userSchema);
+module.exports = mongoose.model('Post', postSchema);
