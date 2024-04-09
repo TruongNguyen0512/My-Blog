@@ -60,7 +60,5 @@ const deleteUser = async (req, res, next) => {
     }
 };
 
-module.exports = { deleteUser };
-
 module.exports ={getUser,updateUser,deleteUser} 
 

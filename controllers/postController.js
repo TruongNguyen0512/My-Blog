@@ -40,4 +40,17 @@ const updatePost = async (req,res,next) =>{
     }
 }
 
-module.exports = { createPost,updatePost}
+const deletePost = async (req, res, next) => {
+    const postId = req.params.postid;
+    try {
+        const deletedPost = await Post.findByIdAndDelete(postId);
+        if (!deletedPost) {
+            return res.status(404).json({ message: "Post not found" });
+        }
+        res.status(200).json({ message: "Your post has been deleted!" });
+    } catch (err) {
+        next(err);
+    }
+};
+
+module.exports = { createPost,updatePost,deletePost}
