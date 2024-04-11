@@ -1,7 +1,8 @@
 
 const Post = require('../models/Post');
+const Comment  = require('../models/Comment')
 
-const verifyAuthor = async (req, res, next) => {
+const verifyAuthorPost = async (req, res, next) => {
     try {
         const postId = req.params.postid; // Lấy id của bài post từ URL
         const post = await Post.findById(postId); // Tìm bài post trong cơ sở dữ liệu
@@ -18,4 +19,20 @@ const verifyAuthor = async (req, res, next) => {
     }
 };
 
-module.exports = {verifyAuthor}
+
+const verifyAuthorCmt = async(req,res,next) =>{
+    try {
+       const cmtId = req.params.cmtid  
+       const cmt  = await Comment.findById(cmtId)
+       
+       if(cmt.user.toString() !==req.user.userId){
+           res.status(403).json({message:'you are not the author of this comment'})
+       }
+       console.log('verifyAuthor ')
+       next()
+    } catch (err) {
+         next(err)
+    }
+ 
+ }
+module.exports = {verifyAuthorPost,verifyAuthorCmt}
