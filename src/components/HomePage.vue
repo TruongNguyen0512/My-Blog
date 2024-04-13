@@ -1,5 +1,9 @@
 <template>
   <div>
+    <!-- Thêm component Header vào đây -->
+    <AppHeader></AppHeader>
+
+    <!-- Nội dung template của component HomePage -->
     <h1>Welcome to My Blog!</h1>
     <p>This is the homepage of our blog application.</p>
     
@@ -10,25 +14,34 @@
         <router-link :to="{ name: 'PostDetail', params: { id: post.id }}"> {{ post.title }} </router-link>
       </li>
     </ul>
+    <div></div>
   </div>
 </template>
 
 <script>
+import axios from 'axios';
+import AppHeader from './AppHeader.vue';
+
 export default {
   name: 'HomePage',
+  components: {
+    AppHeader // Đăng ký component Header để có thể sử dụng trong template của HomePage
+  },
   data() {
     return {
       recentPosts: [] // Danh sách các bài viết mới nhất
     };
   },
   mounted() {
-    // Trong thực tế, bạn sẽ lấy danh sách các bài viết từ API hoặc cơ sở dữ liệu
-    // Ở đây, tôi sẽ sử dụng một mảng mẫu để minh họa
-    this.recentPosts = [
-      { id: 1, title: 'Post 1' },
-      { id: 2, title: 'Post 2' },
-      { id: 3, title: 'Post 3' }
-    ];
+    // Gửi yêu cầu GET đến API để lấy danh sách bài viết
+    axios.get('http://localhost:3000/api/posts/get-posts')
+      .then(response => {
+        // Gán danh sách bài viết vào thuộc tính recentPosts
+        this.recentPosts = response.data;
+      })
+      .catch(error => {
+        console.error('Error fetching recent posts:', error);
+      });
   }
 };
 </script>
