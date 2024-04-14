@@ -34,7 +34,7 @@ const Login = async (req,res,next) =>{
                     const token = jwt.sign({ userId: registeredUser._id }, 'nádhaskhdkjas', { expiresIn: '1h' });
 
                     // Gửi JWT dưới dạng cookie về cho client
-                    res.cookie('token', token, { httpOnly: true }).status(201).json({message:'Login Successfull'});
+                    res.cookie('token', token, { httpOnly: true }).status(201).json({message:'Login Successfull',token:token});
                 }else{
                     throw new Error('Wong Password !Please enter password again !')
                 }

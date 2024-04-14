@@ -13,6 +13,13 @@ const {authenticateUser} = require('./util/authenticateUser')
 app.use(cookieParser())
 app.use(express.json()); // Middleware để parse JSON từ request body
 app.use(bodyParser.json())
+app.use((req, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+    next();
+  });
+  
 
 app.use('/api/auth', AuthenRouter); // Sử dụng router auth
 app.use('/api/users', authenticateUser,UserRouter)
