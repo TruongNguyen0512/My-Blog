@@ -17,10 +17,10 @@ export default {
     },
     mounted() {
         // Lấy id bài viết từ tham số đường dẫn
-        const postId = this.$route.params.postid;
+      
 
         // Gửi yêu cầu GET đến API để lấy thông tin của bài viết
-        axios.get(`http://localhost:3000/api/posts/get-posts/${postId}`)
+        axios.get(`http://localhost:3000/api/posts/get-posts`)
             .then(response => {
                 // Gán dữ liệu bài viết vào thuộc tính post
                 this.post = response.data;

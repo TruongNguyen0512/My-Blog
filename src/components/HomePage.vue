@@ -2,18 +2,13 @@
   <div>
     <!-- Thêm component Header vào đây -->
     <AppHeader></AppHeader>
-
+     
     <!-- Nội dung template của component HomePage -->
     <h1>Welcome to My Blog!</h1>
     <p>This is the homepage of our blog application.</p>
-    
+      
     <!-- Danh sách các bài viết mới nhất -->
-    <ul>
-      <li v-for="post in recentPosts" :key="post.id">
-        <!-- Liên kết đến trang chi tiết của từng bài viết -->
-        <router-link :to="{ name: 'PostDetail', params: { id: post.id }}"> {{ post.title }} </router-link>
-      </li>
-    </ul>
+    <PostDetail></PostDetail>
     <div></div>
   </div>
 </template>
@@ -21,11 +16,13 @@
 <script>
 import axios from 'axios';
 import AppHeader from './AppHeader.vue';
+import PostDetail from './PostDetail.vue' ; 
 
 export default {
   name: 'HomePage',
   components: {
-    AppHeader // Đăng ký component Header để có thể sử dụng trong template của HomePage
+    AppHeader ,// Đăng ký component Header để có thể sử dụng trong template của HomePage
+    PostDetail ,
   },
   data() {
     return {

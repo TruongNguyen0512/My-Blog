@@ -46,6 +46,7 @@
             <button type="submit">Register</button>
             <p>Already have an account? <a href="#" @click="toggleForm">Login</a></p>
           </form>
+          <SuccessMessage v-if="showSuccessMessage" />
         </div>
       </div>
     </div>
@@ -53,15 +54,22 @@
 </template>
 
 <script>
+import Cookies from 'js-cookie';
+import axios from 'axios';
+import SuccessMessage from './SucessMessage.vue';
 export default {
+  components : {
+    SuccessMessage  
+  } , 
   data() {
     return {
       showModal: false,
       isLoginFormVisible: true,
       isRegisterFormVisible: false,
+      showSuccessMessage: false, 
       username: '',
       email: '',
-      password: ''
+      password: '' 
     };
   },
   methods: {
@@ -80,10 +88,58 @@ export default {
     login() {
       // Xử lý đăng nhập ở đây
       // Sau khi đăng nhập thành công, có thể chuyển hướng người dùng đến trang khác
+      axios.post('http://localhost:3000/api/auth/login', {
+        email: this.email,
+        password: this.password
+      })
+      .then(response => {
+        // Xóa thông báo lỗi nếu có
+        this.error = '';
+
+        const accessToken = response.data.token;
+        // Lưu token vào Cookies Storage
+        Cookies.set('accessToken', accessToken, { expires: 7 });
+
+        console.log(response)
+
+        // Xử lý phản hồi từ API ở đây, chẳng hạn chuyển hướng đến trang dashboard
+        // Nếu đăng nhập thành công      
+     
+        this.showSuccessMessage = true;  
+        setTimeout(()=>{
+          this.showSuccessMessage = false 
+        },3000)
+
+      })
+      .catch(error => {
+        // Xử lý lỗi từ API
+        // this.error = error.response.data.message;
+        console.log(error) 
+        
+      });
     },
     register() {
       // Xử lý đăng ký ở đây
-      // Sau khi đăng ký thành công, có thể chuyển hướng người dùng đến trang khác
+      // Sau khi đăng ký thành công, có thể chuyển hướng người  dùng đến trang khác
+            // Gửi yêu cầu POST đến API để đăng ký người dùng
+       axios.post('http://localhost:3000/api/auth/register', {
+        name: this.username,
+        email: this.email,
+        password: this.password
+      })
+      .then(response => {
+        // Xử lý phản hồi từ API ở đây
+        console.log('Registration successful:', response);
+        // Sau khi đăng ký thành công, có thể thực hiện các hành động khác như chuyển hướng người dùng đến trang khác
+        this.showSuccessMessage = true;  
+        setTimeout(()=>{
+          this.showSuccessMessage = false 
+        },3000)
+      })
+      .catch(error => {
+        // Xử lý lỗi từ API
+        console.error('Registration error:', error);
+      });
     }
   }
 };
