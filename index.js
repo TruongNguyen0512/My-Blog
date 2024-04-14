@@ -9,17 +9,20 @@ const UserRouter = require('./routes/user')
 const PostRouter = require('./routes/post')
 const CommentRouter = require('./routes/comments')
 const {authenticateUser} = require('./util/authenticateUser')
+const cors = require('cors')
 
 app.use(cookieParser())
 app.use(express.json()); // Middleware để parse JSON từ request body
 app.use(bodyParser.json())
-app.use((req, res, next) => {
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-    next();
-  });
-  
+const corsOptions = {
+  origin: '*', // Chấp nhận yêu cầu từ tất cả các nguồn
+  methods: ['GET', 'POST', 'PUT', 'DELETE'], // Chỉ chấp nhận các phương thức GET, POST, PUT, DELETE
+  allowedHeaders: ['Authorization', 'Content-Type'], // Chỉ chấp nhận các tiêu đề được liệt kê
+  credentials: true // Cho phép gửi cookie qua CORS
+};
+
+// Sử dụng middleware cors với các tùy chọn
+app.use(cors(corsOptions));
 
 app.use('/api/auth', AuthenRouter); // Sử dụng router auth
 app.use('/api/users', authenticateUser,UserRouter)

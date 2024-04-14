@@ -53,7 +53,7 @@ const deletePost = async (req, res, next) => {
     }
 };
 
-const getPost = async (req,res,next) =>{
+const getPosts = async (req,res,next) =>{
 
     try {
         const post = await Post.find()
@@ -66,4 +66,18 @@ const getPost = async (req,res,next) =>{
         next(err)
     }
 }
-module.exports = { createPost,updatePost,deletePost,getPost}
+const getAPost = async (req,res,next) =>{
+
+    try {
+        const postId = req.params.postid
+        const post = await Post.findById(postId)
+        if(!post){
+            res.status(403).json({message:"Post not found"})
+        }
+        res.status(201).json(post)
+        console.log('test sucessfull')
+    } catch (error) {
+        next(err)
+    }
+}
+module.exports = { createPost,updatePost,deletePost,getPosts,getAPost}
