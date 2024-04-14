@@ -10,7 +10,7 @@ const routes = [
     component: HomePage
   },
   {
-    path: '/get-post/:postid', // Định nghĩa một tham số động ":id" để truyền vào id của bài viết
+    path: '/get-post', // Định nghĩa một tham số động ":id" để truyền vào id của bài viết
     name: 'PostDetail', // Tên của route
     component: PostDetail // Component cho trang chi tiết bài viết
   },

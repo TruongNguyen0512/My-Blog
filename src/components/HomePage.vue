@@ -16,13 +16,13 @@
 <script>
 import axios from 'axios';
 import AppHeader from './AppHeader.vue';
-import PostDetail from './PostDetail.vue' ; 
+import PostDetail from './PostDetail.vue';
 
 export default {
   name: 'HomePage',
   components: {
-    AppHeader ,// Đăng ký component Header để có thể sử dụng trong template của HomePage
-    PostDetail ,
+    AppHeader,// Đăng ký component Header để có thể sử dụng trong template của HomePage
+    PostDetail 
   },
   data() {
     return {
