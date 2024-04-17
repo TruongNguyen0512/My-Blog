@@ -3,27 +3,22 @@ const User = require('../models/User');
 
 const createPost = async (req, res, next) => {
     try {
-        const { title, content, author } = req.body;
+        const { title, content } = req.body;
+        const author = req.user.userId; // Lấy ID của người dùng từ yêu cầu (request)
 
-        // Tìm thông tin của người dùng dựa trên userId trong req.body
-        const authorInfo = await User.findById(author);
-
-        if (!authorInfo) {
-            return res.status(404).json({ message: 'Author not found' });
-        }
-
-        // Tạo bài viết mới với thông tin của tác giả
-        const post = new Post({ title, content, author: authorInfo });
+        // Tạo bài viết mới với thông tin của tác giả và ID của người tạo
+        const post = new Post({ title, content, author });
 
         // Lưu bài viết mới vào cơ sở dữ liệu
         const savedPost = await post.save();
 
         // Trả về thông tin của bài viết cùng với tên của tác giả
-        res.status(201).json({ post: savedPost, author: authorInfo.name });
+        res.status(201).json({ post: savedPost, author: author });
     } catch (error) {
         next(error);
     }
-};  
+};
+
 
 const updatePost = async (req,res,next) =>{
     const postId = req.params.postid

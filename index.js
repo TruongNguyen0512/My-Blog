@@ -26,7 +26,7 @@ app.use(cors(corsOptions));
 
 app.use('/api/auth', AuthenRouter); // Sử dụng router auth
 app.use('/api/users', authenticateUser,UserRouter)
-app.use('/api/posts',authenticateUser,PostRouter)
+app.use('/api/posts',PostRouter)
 app.use('/api/comments',authenticateUser,CommentRouter)
 
 app.use(errorHandler)
