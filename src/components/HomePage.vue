@@ -2,11 +2,12 @@
   <div>
     <!-- Thêm component Header vào đây -->
     <AppHeader></AppHeader>
-     
+    <SideBar></SideBar>
     <!-- Nội dung template của component HomePage -->
-    <h1>Welcome to My Blog!</h1>
-    <p>This is the homepage of our blog application.</p>
-      
+    <div class="introduce">
+        <h1>Welcome to My Blog!</h1>
+        <p>This is the homepage of our blog application.</p>
+    </div>
     <!-- Danh sách các bài viết mới nhất -->
     <PostDetail></PostDetail>
     <div></div>
@@ -17,12 +18,15 @@
 import axios from 'axios';
 import AppHeader from './AppHeader.vue';
 import PostDetail from './PostDetail.vue';
+import SideBar from './SideBar.vue';
 
 export default {
   name: 'HomePage',
+
   components: {
     AppHeader,// Đăng ký component Header để có thể sử dụng trong template của HomePage
-    PostDetail 
+    PostDetail ,
+    SideBar 
   },
   data() {
     return {
@@ -45,4 +49,12 @@ export default {
 
 <style scoped>
 /* CSS styles for the homepage component */
+.introduce {
+    text-align: center;
+}
+.introduce h1,
+.introduce p {
+    margin: 0; /* Đảm bảo không có khoảng cách giữa các phần tử */
+}
+
 </style>

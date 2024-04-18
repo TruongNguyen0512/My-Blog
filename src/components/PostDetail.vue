@@ -46,4 +46,10 @@ export default {
 
 <style scoped>
 /* CSS styles for the PostList component */
+.post-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 </style>
