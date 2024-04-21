@@ -1,18 +1,16 @@
 <template>
-  <div id="app">
-    <!-- Other components or elements -->
-    <router-view></router-view>
-  </div>
+	<div class="app">
+		<!-- Sidebar -->
+
+		<!-- Content -->
+		<router-view ></router-view>
+	</div>
 </template>
 
-<script>
+<script setup>
 
-export default {
-
-  name: 'App'
-}
 </script>
 
-<style>
-/* Global CSS styles for the application */
+<style lang="scss">
+
 </style>

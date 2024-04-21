@@ -1,33 +1,32 @@
 <template>
-    <li @click="handleItemClick" :class="{ active: isActive }">
-      <slot></slot>
-    </li>
-  </template>
-  
-  <script>
-  export default {
-    name: 'MenuItem',
-    props: {
-      isActive: {
-        type: Boolean,
-        default: false
-      }
-    },
-    methods: {
-      handleItemClick() {
-        // Xử lý khi mục menu được nhấp vào
-      }
+  <li @click="handleItemClick" :class="{ active: isActive }">
+    <slot></slot>
+  </li>
+</template>
+
+<script>
+export default {
+  name: 'MenuItem',
+  props: {
+    isActive: {
+      type: Boolean,
+      default: false
     }
-  };
-  </script>
-  
-  <style scoped>
-  li {
-    cursor: pointer;
+  },
+  methods: {
+    handleItemClick() {
+      this.$emit('toggle-active'); // Gửi sự kiện lên component cha để xử lý hiển thị/ẩn
+    }
   }
-  
-  .active {
-    font-weight: bold;
-  }
-  </style>
-  
+};
+</script>
+
+<style scoped>
+li {
+  cursor: pointer;
+}
+
+.active {
+  font-weight: bold;
+}
+</style>
